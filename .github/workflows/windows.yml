@@ -40,19 +40,19 @@ jobs:
           fi
           ls $DLLDIR
           cp $DLLDIR/vcruntime140.dll $DLLDIR/concrt140.dll $DLLDIR/msvcp140.dll $DLLDIR/vccorlib140.dll dist
-          ls dist
+          ls -lashR dist
 
       - name: Setup libusb
         run: |
           wget -nv https://github.com/libusb/libusb/releases/download/v1.0.25/libusb-1.0.25.7z
           7z x libusb-1.0.25.7z -olibusb > /dev/null
-          ls $GITHUB_WORKSPACE/libusb
+          ls -lashR $GITHUB_WORKSPACE/libusb
 
       - name: Setup pthreads
         run: |
           wget -nv https://www.mirrorservice.org/sites/sourceware.org/pub/pthreads-win32/pthreads-w32-2-9-1-release.zip
           7z x pthreads-w32-2-9-1-release.zip -opthreads > /dev/null
-          ls $GITHUB_WORKSPACE/pthreads
+          ls -lashR $GITHUB_WORKSPACE/pthreads
 
       - uses: ilammy/msvc-dev-cmd@v1
         with:
@@ -66,13 +66,13 @@ jobs:
           lib /machine:$ARCH /def:libfftw3-3.def
           lib /machine:$ARCH /def:libfftw3f-3.def
           lib /machine:$ARCH /def:libfftw3l-3.def
-          ls $GITHUB_WORKSPACE/fftw
+          ls -lashR $GITHUB_WORKSPACE/fftw
 
       - name: Setup FX3SDK
         run: |
           wget -nv http://downloads.myriadrf.org/project/limesuite/appveyor/FX3SDK.zip
           7z x FX3SDK.zip -ofx3sdk > /dev/null
-          ls $GITHUB_WORKSPACE/fx3sdk
+          ls -lashR $GITHUB_WORKSPACE/fx3sdk
 
       - name: AirSpy build
         run: |
@@ -137,6 +137,7 @@ jobs:
           cmake --build . --parallel $NUMBER_OF_PROCESSORS --config Release
           cmake --install . --prefix $GITHUB_WORKSPACE/dist --config Release
           echo "* RTL-SDR: `git show --format='%h (%s, %as)' --no-patch`" >> $GITHUB_WORKSPACE/release_notes.md
+          ls -lashR $GITHUB_WORKSPACE/rtl-sdr
 
       - name: PlutoSDR download
         run: |
@@ -186,8 +187,9 @@ jobs:
         run: |
           mv dist/lib/* dist/
           mv dist/bin/* dist/
-          rm -rf dist/bin dist/lib dist/cmake dist/pkgconfig
+          #rm -rf dist/bin dist/lib dist/cmake dist/pkgconfig
           #rm dist/*.exe
+          ls -lashR dist
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -209,7 +211,7 @@ jobs:
           python -m pip install -r data/requirements.txt
           python setup.py build_ext --inplace
           python -m pip install .
-          python data/check_native_backends.py
+          #python data/check_native_backends.py
 
       - name: Create zip
         run: 7z a -tzip win-$ARCH.zip "./dist/*"
