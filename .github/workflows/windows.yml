@@ -194,7 +194,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: "3.7"
+          python-version: "3.9"
           architecture: ${{ matrix.architecture }}
 
       - uses: actions/upload-artifact@v6
@@ -208,7 +208,7 @@ jobs:
           mkdir src/urh/dev/native/lib/shared
           cp -r ../dist/* src/urh/dev/native/lib/shared/
           python --version
-      #    python -m pip install -r data/requirements.txt
+          python -m pip install -r data/requirements.txt
       #    python setup.py build_ext --inplace
       #    python -m pip install .
       #    python data/check_native_backends.py
