@@ -1,6 +1,7 @@
 name: windows
 
 on:
+  workflow_dispatch:
   push:
     branches: [ master ]
     tags: [ "v*" ]
@@ -17,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2019]
+        os: [windows-latest]
         architecture: [x86, x64]
     env:
       ARCH: ${{ matrix.architecture }}
@@ -37,6 +38,7 @@ jobs:
           else
             DLLDIR="/C/Windows/SysWOW64"
           fi
+          ls $DLLDIR
           cp $DLLDIR/vcruntime140.dll $DLLDIR/concrt140.dll $DLLDIR/msvcp140.dll $DLLDIR/vccorlib140.dll dist
           ls dist
 
@@ -212,12 +214,12 @@ jobs:
       - name: Create zip
         run: 7z a -tzip win-$ARCH.zip "./dist/*"
 
-      - uses: ncipollo/release-action@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          artifacts: "win-*.zip"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          allowUpdates: true
-          bodyFile: "release_notes.md"
-          omitBodyDuringUpdate: true
-          omitNameDuringUpdate: true
+      #- uses: ncipollo/release-action@v1
+      #  if: startsWith(github.ref, 'refs/tags/')
+      #  with:
+      #    artifacts: "win-*.zip"
+      #    token: ${{ secrets.GITHUB_TOKEN }}
+      #    allowUpdates: true
+      #    bodyFile: "release_notes.md"
+      #    omitBodyDuringUpdate: true
+      #    omitNameDuringUpdate: true
