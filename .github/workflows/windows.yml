@@ -210,8 +210,8 @@ jobs:
           python --version
           python -m pip install -r data/requirements.txt
           python setup.py build_ext --inplace
-      #    python -m pip install .
-      #    python data/check_native_backends.py
+          python -m pip install .
+          python data/check_native_backends.py
 
       - name: Create zip
         run: 7z a -tzip win-$ARCH.zip "./dist/*"
