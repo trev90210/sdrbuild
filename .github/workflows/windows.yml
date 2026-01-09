@@ -95,34 +95,34 @@ jobs:
       #    cp bladerf/app/$ARCH/* dist
       #    echo "* BladeRF: 2021.03" >> $GITHUB_WORKSPACE/release_notes.md
 
-      - name: HackRF build
-        run: |
-          git clone --depth 1 https://github.com/greatscottgadgets/hackrf
-          mkdir hackrf/host/build && cd hackrf/host/build
-          cmake -A $CMAKE_ARCH -DCMAKE_BUILD_TYPE=Release\
-                -DLIBUSB_LIBRARIES=$GITHUB_WORKSPACE/libusb/VS2019/MS$ARCH_NUM/Release/lib/libusb-1.0.lib \
-                -DLIBUSB_INCLUDE_DIR=$GITHUB_WORKSPACE/libusb/include/libusb-1.0 \
-                -DTHREADS_PTHREADS_INCLUDE_DIR=$GITHUB_WORKSPACE/pthreads/Pre-built.2/include \
-                -DTHREADS_PTHREADS_WIN32_LIBRARY=$GITHUB_WORKSPACE/pthreads/Pre-built.2/lib/$ARCH/pthreadVC2.lib \
-                -DFFTW_INCLUDES=$GITHUB_WORKSPACE/fftw \
-                -DFFTW_LIBRARIES=$GITHUB_WORKSPACE/fftw/libfftw3f-3.lib ..
-          cmake --build . --parallel $NUMBER_OF_PROCESSORS --config Release
-          cmake --install . --prefix $GITHUB_WORKSPACE/dist --config Release
-          echo "* HackRF: `git show --format='%h (%s, %as)' --no-patch`" >> $GITHUB_WORKSPACE/release_notes.md
+      #- name: HackRF build
+      #  run: |
+      #    git clone --depth 1 https://github.com/greatscottgadgets/hackrf
+      #    mkdir hackrf/host/build && cd hackrf/host/build
+      #    cmake -A $CMAKE_ARCH -DCMAKE_BUILD_TYPE=Release\
+      #          -DLIBUSB_LIBRARIES=$GITHUB_WORKSPACE/libusb/VS2019/MS$ARCH_NUM/Release/lib/libusb-1.0.lib \
+      #          -DLIBUSB_INCLUDE_DIR=$GITHUB_WORKSPACE/libusb/include/libusb-1.0 \
+      #          -DTHREADS_PTHREADS_INCLUDE_DIR=$GITHUB_WORKSPACE/pthreads/Pre-built.2/include \
+      #          -DTHREADS_PTHREADS_WIN32_LIBRARY=$GITHUB_WORKSPACE/pthreads/Pre-built.2/lib/$ARCH/pthreadVC2.lib \
+      #          -DFFTW_INCLUDES=$GITHUB_WORKSPACE/fftw \
+      #          -DFFTW_LIBRARIES=$GITHUB_WORKSPACE/fftw/libfftw3f-3.lib ..
+      #    cmake --build . --parallel $NUMBER_OF_PROCESSORS --config Release
+      #    cmake --install . --prefix $GITHUB_WORKSPACE/dist --config Release
+      #    echo "* HackRF: `git show --format='%h (%s, %as)' --no-patch`" >> $GITHUB_WORKSPACE/release_notes.md
 
-      - name: LimeSuite build
-        run: |
-          git clone https://github.com/myriadrf/LimeSuite && cd LimeSuite
-          git show --format="%h (%s, %as)" --no-patch
-          mkdir builddir && cd builddir
-          cmake -A $CMAKE_ARCH \
-                -DCMAKE_BUILD_TYPE=Release \
-                -DENABLE_GUI=OFF \
-                -DFX3_SDK_PATH=$GITHUB_WORKSPACE/fx3sdk \
-                ..
-          cmake --build . --parallel $NUMBER_OF_PROCESSORS --config Release
-          cmake --install . --prefix $GITHUB_WORKSPACE/dist --config Release
-          echo "* LimeSuite: `git show --format='%h (%s, %as)' --no-patch`" >> $GITHUB_WORKSPACE/release_notes.md
+      #- name: LimeSuite build
+      #  run: |
+      #    git clone https://github.com/myriadrf/LimeSuite && cd LimeSuite
+      #    git show --format="%h (%s, %as)" --no-patch
+      #    mkdir builddir && cd builddir
+      #    cmake -A $CMAKE_ARCH \
+      #          -DCMAKE_BUILD_TYPE=Release \
+      #          -DENABLE_GUI=OFF \
+      #          -DFX3_SDK_PATH=$GITHUB_WORKSPACE/fx3sdk \
+      #          ..
+      #    cmake --build . --parallel $NUMBER_OF_PROCESSORS --config Release
+      #    cmake --install . --prefix $GITHUB_WORKSPACE/dist --config Release
+      #    echo "* LimeSuite: `git show --format='%h (%s, %as)' --no-patch`" >> $GITHUB_WORKSPACE/release_notes.md
 
 
       - name: RTL-SDR build
