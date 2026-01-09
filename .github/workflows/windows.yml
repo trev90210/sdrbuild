@@ -195,7 +195,7 @@ jobs:
           python-version: "3.7"
           architecture: ${{ matrix.architecture }}
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v6
         with:
           name: win-${{ matrix.architecture }}
           path: dist
