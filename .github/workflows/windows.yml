@@ -89,7 +89,7 @@ jobs:
 
       - name: BladeRF download
         run: |
-          wget -nv -O bladerf.exe -nv https://www.nuand.com/windows_installers/bladeRF-win-installer-2021.03.exe
+          wget -nv -O bladerf.exe -nv https://github.com/Nuand/bladeRF/releases/download/2025.10/bladeRF-win-installer-2025.10.exe
           innoextract bladerf.exe -d bladerf
           cp bladerf/app/include/* dist/include
           cp bladerf/app/$ARCH/* dist
