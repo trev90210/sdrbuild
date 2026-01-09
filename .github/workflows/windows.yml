@@ -87,13 +87,13 @@ jobs:
           cmake --install . --prefix $GITHUB_WORKSPACE/dist --config Release
           echo "* AirSpy: `git show --format='%h (%s, %as)' --no-patch`" >> $GITHUB_WORKSPACE/release_notes.md
 
-      - name: BladeRF download
-        run: |
-          wget -nv -O bladerf.exe -nv https://github.com/Nuand/bladeRF/releases/download/2025.10/bladeRF-win-installer-2025.10.exe
-          innoextract bladerf.exe -d bladerf
-          cp bladerf/app/include/* dist/include
-          cp bladerf/app/$ARCH/* dist
-          echo "* BladeRF: 2021.03" >> $GITHUB_WORKSPACE/release_notes.md
+      #- name: BladeRF download
+      #  run: |
+      #    wget -nv -O bladerf.exe -nv https://github.com/Nuand/bladeRF/releases/download/2025.10/bladeRF-win-installer-2025.10.exe
+      #    innoextract bladerf.exe -d bladerf
+      #    cp bladerf/app/include/* dist/include
+      #    cp bladerf/app/$ARCH/* dist
+      #    echo "* BladeRF: 2021.03" >> $GITHUB_WORKSPACE/release_notes.md
 
       - name: HackRF build
         run: |
