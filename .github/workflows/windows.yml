@@ -33,10 +33,10 @@ jobs:
         run: |
           mkdir dist
           if [[ $ARCH_NUM == "64" ]]
-            then
-              DLLDIR="/C/Windows/System32"
-            else
-              DLLDIR="/C/Windows/SysWOW64"
+          then
+            DLLDIR="/C/Windows/System32"
+          else
+            DLLDIR="/C/Windows/SysWOW64"
           fi
           ls $DLLDIR
           cp $DLLDIR/vcruntime140.dll $DLLDIR/concrt140.dll $DLLDIR/msvcp140.dll $DLLDIR/vccorlib140.dll dist
