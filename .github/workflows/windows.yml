@@ -210,7 +210,7 @@ jobs:
           python3 --version
           python3 -m pip install -r data/requirements.txt
           python3 setup.py build_ext --inplace
-          python3 -m pip install .
+        #  python3 -m pip install .
         #  python3 data/check_native_backends.py
 
       - name: Create zip
